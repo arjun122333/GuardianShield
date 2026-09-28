@@ -1,0 +1,14 @@
+gradle.allprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android.signingConfigs.all { config ->
+                if (config.name == 'debug') {
+                    config.storeFile = new File("${project.rootDir}/app/keystore/debug.keystore")
+                    config.storePassword = "android"
+                    config.keyAlias = "androiddebugkey"
+                    config.keyPassword = "android"
+                }
+            }
+        }
+    }
+}
