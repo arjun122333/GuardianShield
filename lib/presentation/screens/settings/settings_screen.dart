@@ -8,6 +8,7 @@ import '../../../data/models/user_settings.dart';
 import '../../../data/repositories/mock_firestore_repository.dart';
 import '../../../services/emergency_orchestrator.dart';
 import '../auth/child_safety_login_screen.dart';
+import '../payment/premium_subscription_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -316,6 +317,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           subtitle: const Text('Change your Master Safe PIN used to unlock the vault', style: TextStyle(fontSize: 11)),
                           trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.primaryLight),
                           onTap: _showChangePinDialog,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Premium Protection Subscription Card
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'PREMIUM PROTECTION TIER',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textMuted,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: const CircleAvatar(
+                            backgroundColor: AppColors.primary,
+                            child: Icon(Icons.stars_rounded, color: Colors.white),
+                          ),
+                          title: Text(
+                            _settings.isPremiumUser ? 'Active Plan: ${_settings.subscriptionType.toUpperCase()}' : 'Early Bird Founders Plan - ₹199/Yr',
+                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                          ),
+                          subtitle: Text(
+                            _settings.isPremiumUser
+                                ? 'Expires: ${_settings.subscriptionExpiry ?? "Active"}'
+                                : 'First 5,000 Users Special Offer! Tap to upgrade.',
+                            style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                          ),
+                          trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.primaryLight),
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const PremiumSubscriptionScreen()),
+                            );
+                            _loadSettings();
+                          },
                         ),
                       ],
                     ),

@@ -10,6 +10,10 @@ class UserSettings {
   int locationUpdateIntervalSeconds;
   int videoChunkDurationSeconds;
   bool encryptEvidence;
+  bool isPremiumUser;
+  String subscriptionType;
+  String? subscriptionExpiry;
+  int registeredUserCount;
 
   UserSettings({
     this.shakeTriggerEnabled = true,
@@ -21,6 +25,10 @@ class UserSettings {
     this.locationUpdateIntervalSeconds = 30,
     this.videoChunkDurationSeconds = 30,
     this.encryptEvidence = true,
+    this.isPremiumUser = false,
+    this.subscriptionType = 'free',
+    this.subscriptionExpiry,
+    this.registeredUserCount = 1240,
   });
 
   Map<String, dynamic> toMap() {
@@ -34,6 +42,10 @@ class UserSettings {
       'locationUpdateIntervalSeconds': locationUpdateIntervalSeconds,
       'videoChunkDurationSeconds': videoChunkDurationSeconds,
       'encryptEvidence': encryptEvidence,
+      'isPremiumUser': isPremiumUser,
+      'subscriptionType': subscriptionType,
+      'subscriptionExpiry': subscriptionExpiry,
+      'registeredUserCount': registeredUserCount,
     };
   }
 
@@ -51,6 +63,10 @@ class UserSettings {
       locationUpdateIntervalSeconds: map['locationUpdateIntervalSeconds'] ?? 30,
       videoChunkDurationSeconds: map['videoChunkDurationSeconds'] ?? 30,
       encryptEvidence: map['encryptEvidence'] ?? true,
+      isPremiumUser: map['isPremiumUser'] ?? false,
+      subscriptionType: map['subscriptionType'] ?? 'free',
+      subscriptionExpiry: map['subscriptionExpiry'],
+      registeredUserCount: map['registeredUserCount'] ?? 1240,
     );
   }
 }
